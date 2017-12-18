@@ -544,12 +544,12 @@ showAlterTable table (AddReference (Reference tName columns onDelete onUpdate)) 
   , ") REFERENCES "
   , withSchema tName
   , "("
-  , foreign
+  , frgn
   , ")"
   , maybe "" ((" ON DELETE " ++) . showReferenceAction) onDelete
   , maybe "" ((" ON UPDATE " ++) . showReferenceAction) onUpdate
   ])] where
-  (our, foreign) = f *** f $ unzip columns
+  (our, frgn) = f *** f $ unzip columns
   f = intercalate ", " . map escape
 showAlterTable table (DropReference name) = [(False, defaultPriority,
     "ALTER TABLE " ++ table ++ " DROP CONSTRAINT " ++ name)]
